@@ -1,15 +1,9 @@
-import React from 'react';
-import './Header.scss'
+import "./Header.scss"
 
-interface HeaderProps{
-    counttodo: number;
+export default function Header() {
+  return (
+    <div className='header'>
+        <div className='logo'>Список задач</div>
+    </div>
+  )
 }
-
-export const Header: React.FC<HeaderProps> = ({counttodo}) => (
-<div className="header-container">
-    <p>Лист задач</p>
-    <b>{counttodo} задачи</b>
-</div>
-)
-
-export default Header;
