@@ -7,10 +7,11 @@ export const Header:FC =() => {
 //обьявляем константы
 const [task, setTask] = useState<string>("");
 const [todo, setTodo] = useState<ITask[]>([]);
-//событие
-const handleChange = (event:ChangeEvent<HTMLInputElement>) :void =>{
-        if (event.target.name === "task"){
-        setTask(event.target.value);
+let [error, setError] = useState<boolean>(false)
+//событие по нажатию кнопки
+const handleChange = (e:ChangeEvent<HTMLInputElement>) :void =>{
+        if (e.target.name === "task"){
+        setTask(e.target.value);
         }}
 //кнопка добавления задачи
 const addTask = ():void =>{const newTask = {
@@ -19,6 +20,14 @@ const addTask = ():void =>{const newTask = {
     setTodo([...todo, newTask])
     setTask("");}
 
+    const onError = (e: ChangeEvent<HTMLInputElement>) => {
+        if (error) setError(false)
+        setTask(e.currentTarget.value)
+    }
+    const userMessage =
+        error
+            ? <div style={{color: 'red'}}> Title is required </div>
+            : <div> Please, create list item</div>
 const completeTask = (taskNameToDelete:string):void =>{
     setTodo(todo.filter((task)=>{
           return task.taskName !== taskNameToDelete
@@ -27,13 +36,14 @@ const completeTask = (taskNameToDelete:string):void =>{
 return(
 <>
 <div className="header">
-    <div className="inputButton">
+    <div className="inputTask">
     <input type="text"
            placeholder='Введите задачу' 
            name='task'
            value={task}
            onChange={handleChange} />
            <button onClick={addTask}>Добавить задачку</button>
+           {userMessage}
     </div>
     </div>
 <div className='taskList'>

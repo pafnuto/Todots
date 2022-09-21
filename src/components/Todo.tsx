@@ -1,8 +1,9 @@
-import {Props} from '../types';
+import {IProps} from '../types';
 import './Components.scss';
 import { AiTwotoneDelete } from "react-icons/ai";
 
-export const Todo = ({task,completeTask}:Props) => {
+//создаем запись с кнопкой удаления записи
+export const Todo = ({task,completeTask}:IProps) => {
     return (
 <div className="task">
     <div className="content">
